@@ -5,7 +5,6 @@ import kwetter.domain.User;
 import java.util.List;
 
 public interface UserDAO {
-
     int count();
 
     void create(User user);

@@ -12,10 +12,6 @@ public class DataStorageBean {
 
     private List<User> users = new ArrayList<User>();
 
-    public DataStorageBean() {
-        initUsers();
-    }
-
     @PostConstruct
     private void initUsers() {
         User u1 = new User("Hans", "http", "geboren 1");

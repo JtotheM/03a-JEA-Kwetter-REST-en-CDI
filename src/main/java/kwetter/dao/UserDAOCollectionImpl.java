@@ -2,11 +2,12 @@ package kwetter.dao;
 
 import kwetter.domain.User;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class UserDAOCollectionImpl implements UserDAO {
-
-    private DataStorageBean dsb = new DataStorageBean();
+    @Inject
+    private DataStorageBean dsb;
 
     public UserDAOCollectionImpl() {
     }

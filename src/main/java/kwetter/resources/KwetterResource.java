@@ -1,8 +1,9 @@
 package kwetter.resources;
 
+import kwetter.dao.UserDAO;
 import kwetter.domain.User;
-import kwetter.service.KwetterService;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
@@ -10,13 +11,14 @@ import java.util.List;
 
 @Path("/user")
 public class KwetterResource {
-    private KwetterService kwetterService = new KwetterService();
+    @Inject
+    private UserDAO userDAO;
 
     @POST
     @Path("/create")
     @Produces("application/json")
     public Response create(User user) {
-        kwetterService.create(user);
+        userDAO.create(user);
         return Response.ok(user).build();
     }
 
@@ -24,11 +26,11 @@ public class KwetterResource {
     @Path("/edit")
     @Produces("application/json")
     public Response edit(User user) {
-        if (kwetterService.find(user.getName()) == null) {
+        if (userDAO.find(user.getName()) == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
         }
 
-        kwetterService.edit(user);
+        userDAO.edit(user);
         return Response.ok().build();
     }
 
@@ -36,11 +38,11 @@ public class KwetterResource {
     @Path("/remove")
     @Produces("text/plain")
     public Response remove(User user) {
-        if (kwetterService.find(user.getName()) == null) {
+        if (userDAO.find(user.getName()) == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
         }
 
-        kwetterService.remove(user);
+        userDAO.remove(user);
         return Response.ok().entity("Removed user " + user.getName()).build();
     }
 
@@ -48,7 +50,7 @@ public class KwetterResource {
     @Path("/find/{username}")
     @Produces("application/json")
     public Response find(@PathParam("username") String username) {
-        User user = kwetterService.find(username);
+        User user = userDAO.find(username);
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
         }
@@ -60,7 +62,7 @@ public class KwetterResource {
     @Path("/findAll")
     @Produces("application/json")
     public Response findAll() {
-        List<User> userList = kwetterService.findAll();
+        List<User> userList = userDAO.findAll();
         return Response.ok(new GenericEntity<List<User>>(userList) {
         }).build();
     }
@@ -69,6 +71,6 @@ public class KwetterResource {
     @Path("/count")
     @Produces("text/plain")
     public Response count() {
-        return Response.ok(kwetterService.count()).build();
+        return Response.ok(userDAO.count()).build();
     }
 }
