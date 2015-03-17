@@ -1,6 +1,7 @@
 package kwetter.dao;
 
 import kwetter.domain.User;
+
 import java.util.List;
 
 public interface UserDAO {
@@ -13,7 +14,7 @@ public interface UserDAO {
 
     List<User> findAll();
 
-    User find(Long id);
-
     void remove(User user);
+
+    User find(String name);
 }

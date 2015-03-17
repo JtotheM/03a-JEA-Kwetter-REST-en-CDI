@@ -7,10 +7,10 @@ import kwetter.domain.User;
 import java.util.List;
 
 public class KwetterService {
-
     private UserDAO userDAO = new UserDAOCollectionImpl();
 
     public KwetterService() {
+
     }
 
     public void create(User user) {
@@ -18,7 +18,7 @@ public class KwetterService {
     }
 
     public void edit(User user) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        userDAO.edit(user);
     }
 
     public void remove(User user) {
@@ -29,12 +29,11 @@ public class KwetterService {
         return userDAO.findAll();
     }
 
-    public User find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public User find(String username) {
+        return userDAO.find(username);
     }
 
     public int count() {
         return userDAO.count();
     }
-
 }
